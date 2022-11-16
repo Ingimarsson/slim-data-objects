@@ -41,8 +41,8 @@ class PostRequestData extends RequestData {
 		#[Field(type: FieldType::Query, description: "Less important value", required: false, default: "test")]
 		public readonly string $email,
 
-		#[Field(type: FieldType::Url, description: "Very important value")]
-		public readonly int $name,
+		#[Field(type: FieldType::Body, description: "Very important value")]
+		public readonly string $name,
 	) {}
 }
 ```
@@ -55,7 +55,7 @@ use Ingimarsson\SlimDataObjects\Attribute\RequestDataClass;
 
 #[Path(description: "A simple POST endpoint")]
 #[RequestDataClass(class: PostRequestData::class)]
-final class PostAction {
+class PostAction {
 	public function __invoke(Request $request, Response $response, array $args): Response {
 		$data = PostRequestData::fromRequest($request);
 
