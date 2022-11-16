@@ -1,0 +1,18 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "The Slim Petstore API",
+		"version": "1.0.0"
+	},
+	"tags": [
+		{
+			"name": "/pet",
+			"description": "Everything about your pets"
+		},
+		{
+			"name": "/user",
+			"description": "Everything about your users"
+		}
+	],
+	"paths": {}
+}

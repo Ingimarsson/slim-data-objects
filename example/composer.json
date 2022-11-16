@@ -1,0 +1,25 @@
+{
+    "name": "ingimarsson/slim-data-objects-example",
+    "autoload": {
+        "psr-4": {
+            "Ingimarsson\\SlimDataObjectsExample\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Brynjar Ingimarsson",
+            "email": "brynjar@brynjar.io"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.11",
+        "slim/psr7": "^1.6",
+		"ingimarsson/slim-data-objects": "@dev"
+    },
+	"repositories": [
+		{
+			"type": "path",
+			"url": "../"
+		}
+	]
+}

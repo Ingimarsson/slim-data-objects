@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+use Ingimarsson\SlimDataObjects\DocBuilder;
+
+if ($argc !== 4) {
+	printf("Usage: ./builder [app script] [template] [output]\n");
+	die();
+}
+
+$appPath = $argv[1];
+$template = $argv[2];
+$output = $argv[3];
+
+if (!file_exists($appPath)) {
+	printf("Error: App script not found\n");
+	die();
+}
+
+$app = require $appPath;
+
+$builder = new DocBuilder($app, $template);
+
+$builder->write($output);

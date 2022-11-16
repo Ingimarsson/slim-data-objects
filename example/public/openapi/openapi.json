@@ -1,0 +1,570 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "The Slim Petstore API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "\/pet\/{id}": {
+            "get": {
+                "summary": "Get a single pet",
+                "tags": [
+                    "\/pet"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "hello"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        },
+                                        "available": {
+                                            "type": "boolean",
+                                            "description": "hello"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "405": {
+                        "description": "Method Not Allowed"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the pet"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "Update a pet",
+                "tags": [
+                    "\/pet"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The name of the pet"
+                                    },
+                                    "category": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The category of the pet"
+                                    },
+                                    "available": {
+                                        "required": false,
+                                        "type": "boolean",
+                                        "description": "The availability of the pet",
+                                        "default": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the pet"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a pet",
+                "tags": [
+                    "\/pet"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the pet"
+                    }
+                ]
+            }
+        },
+        "\/pet\/{id}\/history": {
+            "get": {
+                "summary": "Get the history for a pet",
+                "tags": [
+                    "\/pet"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "description": "hello"
+                                            },
+                                            "employee": {
+                                                "type": "string",
+                                                "description": "hello"
+                                            },
+                                            "food": {
+                                                "type": "string",
+                                                "description": "hello"
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "description": "hello"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the pet"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "default": "0",
+                        "description": "The offset in the results"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "default": "10",
+                        "description": "The number of results to return"
+                    }
+                ]
+            }
+        },
+        "\/pet\/{id}\/history\/{historyId}": {
+            "put": {
+                "summary": "Update a history item of a pet",
+                "tags": [
+                    "\/pet"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "employee": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The employee that handled the pet"
+                                    },
+                                    "food": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The food that was given to the pet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the pet"
+                    },
+                    {
+                        "name": "historyId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the history item"
+                    }
+                ]
+            }
+        },
+        "\/user": {
+            "post": {
+                "summary": "Create a new user",
+                "tags": [
+                    "\/user"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The username of the user"
+                                    },
+                                    "password": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The password of the user"
+                                    },
+                                    "isAdmin": {
+                                        "required": false,
+                                        "type": "boolean",
+                                        "description": "The admin status of the user",
+                                        "default": false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "405": {
+                        "description": "Method Not Allowed"
+                    }
+                }
+            }
+        },
+        "\/user\/{id}": {
+            "get": {
+                "summary": "Get a single user",
+                "tags": [
+                    "\/user"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "description": "hello"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        },
+                                        "isAdmin": {
+                                            "type": "boolean",
+                                            "description": "hello"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "405": {
+                        "description": "Method Not Allowed"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the user"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a user",
+                "tags": [
+                    "\/user"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "405": {
+                        "description": "Method Not Allowed"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the user"
+                    }
+                ]
+            }
+        },
+        "\/user\/{id}\/password": {
+            "put": {
+                "summary": "Reset the password of a user",
+                "tags": [
+                    "\/user"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newPassword": {
+                                        "required": true,
+                                        "type": "string",
+                                        "description": "The new password"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "hello"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "405": {
+                        "description": "Method Not Allowed"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The ID of the user"
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "\/pet",
+            "description": "Everything about your pets"
+        },
+        {
+            "name": "\/user",
+            "description": "Everything about your users"
+        }
+    ]
+}
