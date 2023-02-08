@@ -4,6 +4,7 @@ namespace Ingimarsson\SlimDataObjects\Middleware;
 
 use Ingimarsson\SlimDataObjects\Parser;
 use Ingimarsson\SlimDataObjects\RequestValidator;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
@@ -11,7 +12,7 @@ use Slim\Psr7\Response;
 
 class ValidatorMiddleware implements MiddlewareInterface
 {
-	public function process(Request $request, Handler $handler): Response {
+	public function process(Request $request, Handler $handler): ResponseInterface {
 		$parsedRequest = Parser::parseRequest($request);
 
 		$validation = RequestValidator::validateRequest($parsedRequest);

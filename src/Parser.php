@@ -4,6 +4,7 @@ namespace Ingimarsson\SlimDataObjects;
 
 use Ingimarsson\SlimDataObjects\Attribute\RequestDataClass;
 use Ingimarsson\SlimDataObjects\Attribute\ResponseDataClass;
+use Ingimarsson\SlimDataObjects\Attribute\ResponseField;
 use Ingimarsson\SlimDataObjects\DTO\ParsedField;
 use Ingimarsson\SlimDataObjects\DTO\ParsedRequest;
 use Ingimarsson\SlimDataObjects\DTO\ParsedResponseField;
@@ -120,11 +121,24 @@ final class Parser {
 		$fields = [];
 
 		foreach ($reflection->getProperties() as $property) {
-			$fields[] = new ParsedResponseField(
-				$property->getName(),
-				$property->getType()->getName(),
-				'hello'
-			);
+			if ($property->getType()->getName() === 'array') {
+				// get type from attribute
+				$responseField = $property->getAttributes(ResponseField::class)[0] ?? null;
+
+				$fields[] = new ParsedResponseField(
+					$property->getName(),
+					$responseField->getArguments()['type'],
+					'hello',
+					true
+				);
+			}
+			else {
+				$fields[] = new ParsedResponseField(
+					$property->getName(),
+					$property->getType()->getName(),
+					'hello'
+				);
+			}
 		}
 
 		return $fields;

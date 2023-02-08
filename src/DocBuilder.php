@@ -6,6 +6,8 @@ use cebe\openapi\Reader;
 use cebe\openapi\spec\PathItem;
 use cebe\openapi\Writer;
 use Ingimarsson\SlimDataObjects\Attribute\Path;
+use Ingimarsson\SlimDataObjects\Attribute\ResponseField;
+use Ingimarsson\SlimDataObjects\DTO\ParsedResponseField;
 use Ingimarsson\SlimDataObjects\Enum\FieldType;
 use Ingimarsson\SlimDataObjects\Utils\HttpResponseCodes;
 use ReflectionClass;
@@ -49,6 +51,11 @@ final class DocBuilder {
 
 		$openapi = Reader::readFromJsonFile(realpath('openapi.template.json'));
 
+		$definedTags = [];
+		foreach ($openapi->tags as $tag) {
+			$definedTags[$tag->{"x-path"}] = $tag->name;
+		}
+
 		foreach ($routes as $key => $route) {
 			$group = $route->getGroups()[0];
 
@@ -65,7 +72,7 @@ final class DocBuilder {
 				$description = $attr[0]->getArguments()['description'];
 				$methods = $route->getMethods();
 				$path = $route->getPattern();
-				$tags = $group = array_map(fn ($g) => $g->getPattern(), $route->getGroups());
+				$tags = $group = array_map(fn ($g) => $definedTags[$g->getPattern()] ?? '', $route->getGroups());
 
 				$descriptor = [
 					'summary' => $description,
@@ -157,7 +164,9 @@ final class DocBuilder {
 						$type = match ($field->type) {
 							'int' => 'integer',
 							'bool' => 'boolean',
-							default => 'string'
+							'string' => 'string',
+							'DateTimeImmutable' => 'string',
+							default => 'object'
 						};
 
 						$schema = [
@@ -172,7 +181,19 @@ final class DocBuilder {
 							$schema['description'] = $field->description;
 						}
 
-						$descriptor['responses']['200']['content']['application/json']['schema']['properties'][$field->property] = $schema;
+						if ($type === 'object') {
+							$schema['properties'] = self::getObjectProperties($field->type);
+						}
+
+						if ($field->array) {
+							$descriptor['responses']['200']['content']['application/json']['schema']['properties'][$field->property] = [
+								'type' => 'array',
+								'items' => $schema,
+							];
+						}
+						else {
+							$descriptor['responses']['200']['content']['application/json']['schema']['properties'][$field->property] = $schema;
+						}
 					}
 
 					if (!sizeof($descriptor['responses']['200']['content']['application/json']['schema']['properties'])) {
@@ -202,5 +223,31 @@ final class DocBuilder {
 		$json = Writer::writeToJson($openapi);
 
 		file_put_contents($file, $json);
+	}
+
+	public static function getObjectProperties(string $className) {
+		$reflection = new ReflectionClass($className);
+
+		$fields = [];
+
+		foreach ($reflection->getProperties() as $property) {
+			$type = match($property->getType()->getName()) {
+				'string' => 'string',
+				'int' => 'number',
+				'bool' => 'boolean',
+				'DateTimeImmutable' => 'string',
+				'default' => 'string,'
+			};
+
+			$fields[$property->getName()] = [
+				'type' => $type
+			];
+
+			if ($property->getType()->getName() === 'DateTimeImmutable') {
+				$fields[$property->getName()]['format'] = 'date-time';
+			}
+		}
+
+		return $fields;
 	}
 }

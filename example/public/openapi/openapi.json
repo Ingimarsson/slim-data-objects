@@ -9,7 +9,7 @@
             "get": {
                 "summary": "Get a single pet",
                 "tags": [
-                    "\/pet"
+                    "Pets"
                 ],
                 "responses": {
                     "200": {
@@ -38,6 +38,32 @@
                                             "type": "string",
                                             "format": "date-time",
                                             "description": "hello"
+                                        },
+                                        "history": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "description": "hello",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "nicknames": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "description": "hello"
+                                            }
                                         }
                                     }
                                 }
@@ -70,7 +96,7 @@
             "put": {
                 "summary": "Update a pet",
                 "tags": [
-                    "\/pet"
+                    "Pets"
                 ],
                 "requestBody": {
                     "content": {
@@ -138,7 +164,7 @@
             "delete": {
                 "summary": "Delete a pet",
                 "tags": [
-                    "\/pet"
+                    "Pets"
                 ],
                 "responses": {
                     "200": {
@@ -181,7 +207,7 @@
             "get": {
                 "summary": "Get the history for a pet",
                 "tags": [
-                    "\/pet"
+                    "Pets"
                 ],
                 "responses": {
                     "200": {
@@ -260,7 +286,7 @@
             "put": {
                 "summary": "Update a history item of a pet",
                 "tags": [
-                    "\/pet"
+                    "Pets"
                 ],
                 "requestBody": {
                     "content": {
@@ -333,7 +359,7 @@
             "post": {
                 "summary": "Create a new user",
                 "tags": [
-                    "\/user"
+                    "Users"
                 ],
                 "requestBody": {
                     "content": {
@@ -395,7 +421,7 @@
             "get": {
                 "summary": "Get a single user",
                 "tags": [
-                    "\/user"
+                    "Users"
                 ],
                 "responses": {
                     "200": {
@@ -452,7 +478,7 @@
             "delete": {
                 "summary": "Delete a user",
                 "tags": [
-                    "\/user"
+                    "Users"
                 ],
                 "responses": {
                     "200": {
@@ -498,7 +524,7 @@
             "put": {
                 "summary": "Reset the password of a user",
                 "tags": [
-                    "\/user"
+                    "Users"
                 ],
                 "requestBody": {
                     "content": {
@@ -559,12 +585,14 @@
     },
     "tags": [
         {
-            "name": "\/pet",
-            "description": "Everything about your pets"
+            "name": "Pets",
+            "description": "Everything about your pets",
+            "x-path": "\/pet"
         },
         {
-            "name": "\/user",
-            "description": "Everything about your users"
+            "name": "Users",
+            "description": "Everything about your users",
+            "x-path": "\/user"
         }
     ]
 }

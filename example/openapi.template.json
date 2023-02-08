@@ -6,11 +6,13 @@
 	},
 	"tags": [
 		{
-			"name": "/pet",
+			"x-path": "/pet",
+			"name": "Pets",
 			"description": "Everything about your pets"
 		},
 		{
-			"name": "/user",
+			"x-path": "/user",
+			"name": "Users",
 			"description": "Everything about your users"
 		}
 	],

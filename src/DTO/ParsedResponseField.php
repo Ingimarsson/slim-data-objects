@@ -8,5 +8,6 @@ final class ParsedResponseField
 		public readonly string $property,
 		public readonly string $type,
 		public readonly ?string $description,
+		public readonly bool $array = false,
 	) {}
 }

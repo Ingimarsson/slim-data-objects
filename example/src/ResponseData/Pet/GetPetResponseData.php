@@ -3,6 +3,8 @@
 namespace Ingimarsson\SlimDataObjectsExample\ResponseData\Pet;
 
 use DateTimeImmutable;
+use Ingimarsson\SlimDataObjects\Attribute\ResponseField;
+use Ingimarsson\SlimDataObjectsExample\ResponseData\Pet\Object\PetHistory;
 use Ingimarsson\SlimDataObjects\ResponseData;
 
 final class GetPetResponseData extends ResponseData
@@ -13,5 +15,13 @@ final class GetPetResponseData extends ResponseData
 		public readonly string $category,
 		public readonly bool $available,
 		public readonly DateTimeImmutable $createdAt,
+
+		/** @var PetHistory[] */
+		#[ResponseField(type: PetHistory::class)]
+		public readonly array $history,
+
+		/** @var string[] */
+		#[ResponseField(type: 'string')]
+		public readonly array $nicknames
 	) {}
 }
